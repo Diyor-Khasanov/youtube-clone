@@ -2,13 +2,14 @@ import { Button, TextField } from '@mui/material'
 import { Youtube } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import icon from '../../public/icons/yt_icon.png'
 
 const Login = () => {
   return (
     <div className='flex items-center justify-center my-auto h-screen'>
       <div className='flex items-center justify-center gap-1 shadow-2xl p-8 h-[80vh] rounded-xl max-w-max'>
         <div className='w-[500px] flex items-center justify-center'>
-          <Youtube className='text-red-600 w-40 h-40 font-thin' />
+          <img src={icon} alt="youtube icon" />
         </div>
         <span className='bg-red-600 h-full w-1'></span>
         <form className='flex flex-col gap-6 p-4'>
@@ -32,7 +33,7 @@ const Login = () => {
           <Button color='error' variant='contained'>Sign In</Button>
 
           <div className='flex items-center justify-between'>
-            <p>Already have account?</p>
+            <p>Don't have account yet?</p>
             <Link to={'/register'} className='text-red-600 underline'>
               Sign Up
             </Link>
