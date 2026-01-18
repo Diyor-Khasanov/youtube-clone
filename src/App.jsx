@@ -1,10 +1,11 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom'
 
 const App = () => {
-
-
   return (
-    <div></div>
+    <div>
+      <Navigate to={'/dashboard'} replace={true} />
+    </div>
   )
 }
 
