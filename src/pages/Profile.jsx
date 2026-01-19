@@ -1,19 +1,13 @@
 import { ArrowLeft, Mail, User as UserIcon } from 'lucide-react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 const Profile = () => {
   const userDataStr = localStorage.getItem('userData')
   const userData = userDataStr ? JSON.parse(userDataStr) : null
 
-  // Ma'lumot yo'qligida xatolik bermasligi uchun tekshiruv
   if (!userData) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h2 className="text-2xl font-bold mb-4">Foydalanuvchi topilmadi</h2>
-        <Link to="/login" className="text-red-600 underline">Tizimga kiring</Link>
-      </div>
-    )
+    return <Navigate to={'/login'} replace={true} />
   }
 
   const toCapitalize = (val) => {
@@ -36,7 +30,7 @@ const Profile = () => {
           </Link>
         </div>
 
-        <h1 className='text-4xl md:text-6xl lg:text-7xl text-center font-bold text-gray-800 mt-10 md:mt-16 break-words w-full'>
+        <h1 className='text-3xl md:text-5xl lg:text-6xl text-center font-bold text-gray-800 mt-10 md:mt-16 wrap-break-words w-full'>
           {toCapitalize(userData.user.firstname)} {toCapitalize(userData.user.lastname)}
         </h1>
 

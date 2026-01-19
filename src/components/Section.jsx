@@ -6,9 +6,9 @@ import Loading from "./Loading";
 
 const Section = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { images, isLoading, err } = useSelector(
+  const { images, isLoading, err, searchTerm } = useSelector(
     (state) => state.imageApp
   );
 
@@ -16,27 +16,26 @@ const Section = () => {
     dispatch(fetchApi());
   }, [dispatch]);
 
+  const filteredImages = images.filter((img) =>
+    img.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const handleNavigate = (id) => {
-    navigate(`/vid/${id}`)
-  }
+    navigate(`/vid/${id}`);
+  };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (err) {
-    return <h2 className="text-center text-red-600 mt-10 font-bold">{err}</h2>;
-  }
+  if (isLoading) return <Loading />;
+  if (err) return <h2 className="text-center text-red-600 mt-10 font-bold">{err}</h2>;
 
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-6 gap-4 md:gap-8 lg:gap-10">
-      {images.flat().map((img) => (
+      {filteredImages.map((img) => (
         <button
           key={img.id}
           onClick={() => handleNavigate(img.id)}
           className="w-full group focus:outline-none"
         >
-          <div className="hover:bg-red-50 p-3 md:p-4 rounded-2xl duration-300 cursor-pointer transition-all h-full shadow-sm hover:shadow-md border border-transparent hover:border-red-100">
+          <div className="hover:bg-red-50 p-3 md:p-4 rounded-2xl transition-all h-full shadow-sm hover:shadow-md">
             <div className="overflow-hidden rounded-xl h-[200px] sm:h-[220px] md:h-[250px] lg:h-[280px]">
               <img
                 src={img.image}

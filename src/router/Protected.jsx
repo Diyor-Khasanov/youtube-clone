@@ -3,12 +3,9 @@ import { Navigate } from 'react-router-dom'
 
 const Protected = ({children}) => {
   const userDataStr = localStorage.getItem('userData')
-  const userData = JSON.parse(userDataStr)
-  const token = userData.token
+  const userData = userDataStr ? JSON.parse(userDataStr) : null
 
-  console.log(token)
-
-  if (!token) {
+  if (!userData) {
     return <Navigate to={'/login'} replace={true} />
   }
 

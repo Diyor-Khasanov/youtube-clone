@@ -1,9 +1,18 @@
-import { Bell, Search, User, Menu } from 'lucide-react'
+import { Bell, Search, User, Menu, LogOut } from 'lucide-react'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { setSearchTerm } from "../redux/imageSlice";
 
 const Header = () => {
+  const navigate = useNavigate()
   const [showMobileSearch, setShowMobileSearch] = useState(false);
+  const dispatch = useDispatch()
+
+  const handleLogOut = () => {
+    localStorage.removeItem('userData')
+    navigate('/login')
+  }
 
   return (
     <nav className='flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-3 bg-white shadow-sm gap-4'>
@@ -36,6 +45,10 @@ const Header = () => {
           >
             <User size={20} />
           </Link>
+
+          <button onClick={handleLogOut} className="bg-red-600 text-white rounded-full p-2.5 hover:bg-red-700 transition-colors shadow-md">
+            <LogOut size={20} />
+          </button>
         </div>
       </div>
 
@@ -49,8 +62,9 @@ const Header = () => {
 
             <input
               type="text"
-              placeholder="Search recipes, meals..."
+              placeholder="Search meals..."
               className="border-none outline-none flex-1 text-sm md:text-base w-full bg-transparent text-gray-800 placeholder:text-gray-400"
+              onChange={(e) => dispatch(setSearchTerm(e.target.value))}
             />
             <button
               onClick={(e) => e.preventDefault()}
@@ -78,6 +92,10 @@ const Header = () => {
         >
           <User size={20} />
         </Link>
+
+        <button onClick={handleLogOut} className="bg-red-600 text-white rounded-full p-2.5 hover:bg-red-700 transition-colors shadow-md">
+          <LogOut size={20} />
+        </button>
       </div>
     </nav>
   )

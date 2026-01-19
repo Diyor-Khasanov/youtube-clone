@@ -1,7 +1,8 @@
-import { Button, TextField } from '@mui/material'
-import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { Button, TextField, Paper, Divider, Typography } from '@mui/material'
+import { motion } from 'framer-motion'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,15 +10,11 @@ const Login = () => {
     password: '',
   })
   const navigate = useNavigate()
-
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
@@ -30,11 +27,9 @@ const Login = () => {
         'https://auth-api-z9p7.onrender.com/api/auth/login',
         formData
       )
-      alert('LOGIN SUCCESS')
       localStorage.setItem('userData', JSON.stringify(res.data))
       navigate('/dashboard')
     } catch (err) {
-      console.error(err)
       setError(err.response?.data?.message || 'Login failed')
     } finally {
       setLoading(false)
@@ -42,70 +37,127 @@ const Login = () => {
   }
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-gray-50 p-4'>
-      <div className='flex flex-col lg:flex-row items-center justify-center gap-4 shadow-2xl p-6 md:p-10 min-h-[70vh] w-full max-w-5xl rounded-2xl bg-white'>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen w-full flex items-center justify-center bg-[#fafafa] p-4 md:p-8 font-sans"
+    >
+      <Paper
+        elevation={0}
+        className="flex flex-col lg:flex-row-reverse overflow-hidden w-full max-w-5xl min-h-[650px] rounded-[32px] shadow-[0_40px_80px_-20px_rgba(211,47,47,0.15)] border border-gray-100"
+      >
 
-        <div className='w-full lg:w-1/2 flex items-center justify-center p-4'>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/9617/9617325.png"
-            alt="youtube icon"
-            className='w-full max-w-[200px] md:max-w-[350px] object-contain'
-          />
+        <div className="hidden lg:flex lg:w-1/2 bg-[#d32f2f] relative p-12 flex-col justify-between overflow-hidden">
+          <div className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{ backgroundImage: `url('https://www.transparenttextures.com')` }}></div>
+
+          <div className="relative z-10">
+            <Typography variant="h2" className="text-white font-black leading-tight tracking-tight mb-4">
+              Fresh <br /> Flavors <br /> Await You.
+            </Typography>
+            <div className="w-20 h-1.5 bg-white rounded-full"></div>
+          </div>
+
+          <div className="relative z-10">
+            <div className="bg-white/10 backdrop-blur-xl p-6 rounded-[24px] border border-white/20">
+              <p className="text-white text-lg font-medium italic">
+                "Ready to order your favorite meal? Just log in and we'll handle the rest."
+              </p>
+              <p className="text-red-100 mt-3 font-bold">— Meal Express Team</p>
+            </div>
+          </div>
         </div>
 
-        <span className='hidden lg:block bg-red-600 h-80 w-1'></span>
+        <div className="w-full lg:w-1/2 bg-white p-8 md:p-16 flex items-center">
+          <div className="w-full max-w-md mx-auto">
+            <div className="mb-10">
+              <h1 className="text-4xl font-black text-gray-900 mb-2">Welcome Back</h1>
+              <p className="text-gray-500 font-medium">Please enter your details to sign in</p>
+            </div>
 
-        <form className='flex flex-col gap-6 p-2 w-full lg:w-1/2' onSubmit={handleSubmit}>
-          <h1 className='text-4xl md:text-6xl text-red-600 text-center font-semibold mb-2'>
-            Sign In
-          </h1>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <TextField
+                fullWidth
+                label="Email Address"
+                name="email"
+                type="email"
+                variant="filled"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                InputProps={{ disableUnderline: true, className: "rounded-2xl bg-gray-50 font-medium" }}
+                InputLabelProps={{ className: "text-gray-400" }}
+              />
 
-          <TextField
-            required
-            fullWidth
-            label="Email"
-            name='email'
-            type='email'
-            variant="outlined"
-            onChange={handleChange}
-            value={formData.email}
-          />
+              <TextField
+                fullWidth
+                label="Password"
+                name="password"
+                type="password"
+                variant="filled"
+                required
+                value={formData.password}
+                onChange={handleChange}
+                InputProps={{ disableUnderline: true, className: "rounded-2xl bg-gray-50 font-medium" }}
+                InputLabelProps={{ className: "text-gray-400" }}
+              />
 
-          <TextField
-            required
-            fullWidth
-            name='password'
-            label="Password"
-            type='password'
-            variant="outlined"
-            onChange={handleChange}
-            value={formData.password}
-          />
+              {error && (
+                <motion.div
+                  initial={{ x: -10 }} animate={{ x: 0 }}
+                  className="bg-red-50 text-[#d32f2f] p-4 rounded-2xl text-sm font-bold border-l-4 border-[#d32f2f]"
+                >
+                  {error}
+                </motion.div>
+              )}
 
-          {error && (
-            <p className="text-red-600 text-center text-sm">{error}</p>
-          )}
+              <Button
+                fullWidth
+                type="submit"
+                variant="contained"
+                disabled={loading}
+                disableElevation
+                sx={{
+                  py: 2.2,
+                  mt: 2,
+                  borderRadius: '18px',
+                  backgroundColor: '#d32f2f',
+                  fontSize: '1.1rem',
+                  fontWeight: '900',
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: '#b71c1c',
+                  }
+                }}
+              >
+                {loading ? 'Signing In...' : 'Sign In'}
+              </Button>
 
-          <Button
-            color="error"
-            variant="contained"
-            type="submit"
-            size="large"
-            disabled={loading}
-            className='py-3'
-          >
-            {loading ? 'Signing In...' : 'Sign In'}
-          </Button>
-
-          <div className='flex flex-col sm:flex-row items-center justify-between gap-2 mt-2 text-sm md:text-base'>
-            <p className='text-gray-600'>Don't have account yet?</p>
-            <Link to={'/register'} className='text-red-600 font-bold underline'>
-              Sign Up
-            </Link>
+              <div className="pt-8 flex flex-col items-center gap-4">
+                <Divider className="w-full" />
+                <p className="text-gray-500 font-medium text-center">
+                  Don't have an account yet? <br />
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-block mt-2"
+                  >
+                    <Link
+                      to="/register"
+                      className="text-[#d32f2f] font-black text-lg border-b-2 border-[#d32f2f] hover:bg-red-50 px-2 py-1 rounded-t-md transition-all"
+                    >
+                      Create Account
+                    </Link>
+                  </motion.div>
+                </p>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-    </div>
+        </div>
+      </Paper>
+    </motion.div>
   )
 }
 
