@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { setSearchTerm } from "../redux/imageSlice";
+import SearchForm from './SearchForm';
 
 const Header = () => {
   const navigate = useNavigate()
@@ -53,28 +54,7 @@ const Header = () => {
       </div>
 
       <div className={`${showMobileSearch ? 'flex' : 'hidden'} md:flex w-full md:w-[40%] lg:w-[500px]`}>
-        <form className="group relative flex items-center w-full max-w-[500px]">
-          <div className="relative flex border-2 border-gray-200 group-focus-within:border-red-600 w-full pl-5 pr-1.5 py-1.5 rounded-full items-center bg-white transition-colors duration-200">
-
-            <div className="text-gray-400 mr-2 group-focus-within:text-red-600 transition-colors">
-              <Search size={18} strokeWidth={2.5} />
-            </div>
-
-            <input
-              type="text"
-              placeholder="Search meals..."
-              className="border-none outline-none flex-1 text-sm md:text-base w-full bg-transparent text-gray-800 placeholder:text-gray-400"
-              onChange={(e) => dispatch(setSearchTerm(e.target.value))}
-            />
-            <button
-              onClick={(e) => e.preventDefault()}
-              className="bg-red-600 hover:bg-red-700 active:bg-red-800 px-5 py-2 md:px-7 md:py-2.5 rounded-full cursor-pointer text-white font-semibold flex items-center justify-center gap-2 transition-all duration-200"
-            >
-              <span className="hidden md:block text-sm tracking-wide"><Search size={18} /></span>
-              <Search size={18} className="md:hidden" />
-            </button>
-          </div>
-        </form>
+        <SearchForm />
       </div>
 
       <div className='hidden md:flex gap-3 lg:gap-5 items-center'>
