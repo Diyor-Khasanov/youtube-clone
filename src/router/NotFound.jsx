@@ -22,10 +22,10 @@ const NotFound = () => {
 
         <div className="space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-            Sahifa topilmadi!
+            Page not found!
           </h2>
           <p className="text-gray-500 text-sm md:text-base leading-relaxed">
-            Siz qidirayotgan sahifa o'chirilgan, nomi o'zgartirilgan yoki vaqtincha mavjud bo'lmasligi mumkin.
+            The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
           </p>
         </div>
 
@@ -35,7 +35,7 @@ const NotFound = () => {
             className="w-full sm:w-auto flex items-center justify-center gap-2 bg-red-600 text-white px-8 py-3 rounded-2xl font-semibold shadow-lg shadow-red-200 hover:bg-red-700 hover:-translate-y-1 transition-all active:scale-95"
           >
             <Home size={20} />
-            Bosh sahifaga qaytish
+            Go to Home
           </Link>
 
           <button
@@ -43,7 +43,7 @@ const NotFound = () => {
             className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white text-gray-700 border-2 border-gray-100 px-8 py-3 rounded-2xl font-semibold hover:bg-gray-50 transition-all"
           >
             <ArrowLeft size={20} />
-            Orqaga
+            Back
           </button>
         </div>
       </div>

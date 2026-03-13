@@ -16,9 +16,6 @@ const Section = () => {
     dispatch(fetchApi());
   }, [dispatch]);
 
-  const filteredImages = images.filter((img) =>
-    img.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   const handleNavigate = (id) => {
     navigate(`/vid/${id}`);
@@ -29,7 +26,7 @@ const Section = () => {
 
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-6 gap-4 md:gap-8 lg:gap-10">
-      {filteredImages.map((img) => (
+      {images.map((img) => (
         <button
           key={img.id}
           onClick={() => handleNavigate(img.id)}

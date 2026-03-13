@@ -2,7 +2,6 @@ import { Bell, Search, User, Menu, LogOut } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
-import { setSearchTerm } from "../redux/imageSlice";
 import SearchForm from './SearchForm';
 
 const Header = () => {
@@ -32,50 +31,11 @@ const Header = () => {
           <button onClick={() => setShowMobileSearch(!showMobileSearch)} className='bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition-colors shadow-md'>
             <Search size={24} />
           </button>
-          <Link
-            title="Notifications"
-            to={'/notifications'}
-            className='bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition-colors shadow-md'
-          >
-            <Bell size={20} />
-          </Link>
-          <Link
-            title="Profile"
-            to={'/profile'}
-            className='bg-red-600 text-white rounded-full p-2 hover:bg-red-700 transition-colors shadow-md'
-          >
-            <User size={20} />
-          </Link>
-
-          <button onClick={handleLogOut} className="bg-red-600 text-white rounded-full p-2.5 hover:bg-red-700 transition-colors shadow-md">
-            <LogOut size={20} />
-          </button>
         </div>
       </div>
 
       <div className={`${showMobileSearch ? 'flex' : 'hidden'} md:flex w-full md:w-[40%] lg:w-[500px]`}>
         <SearchForm />
-      </div>
-
-      <div className='hidden md:flex gap-3 lg:gap-5 items-center'>
-        <Link
-          title="Notifications"
-          to={'/notifications'}
-          className='bg-red-600 text-white p-2.5 rounded-full hover:bg-red-700 transition-colors shadow-md'
-        >
-          <Bell size={20} />
-        </Link>
-        <Link
-          title="Profile"
-          to={'/profile'}
-          className='bg-red-600 text-white rounded-full p-2.5 hover:bg-red-700 transition-colors shadow-md'
-        >
-          <User size={20} />
-        </Link>
-
-        <button onClick={handleLogOut} className="bg-red-600 text-white rounded-full p-2.5 hover:bg-red-700 transition-colors shadow-md">
-          <LogOut size={20} />
-        </button>
       </div>
     </nav>
   )

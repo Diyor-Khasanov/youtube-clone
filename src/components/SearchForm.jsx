@@ -58,10 +58,13 @@ const SearchForm = () => {
               <div
                 key={suggestion.id}
                 onClick={() => handleSelect(suggestion.id, suggestion.name)}
-                className="px-5 py-3 hover:bg-gray-50 cursor-pointer flex items-center gap-3 transition-colors"
+                className="px-5 py-3 hover:bg-gray-50 cursor-pointer flex items-center justify-between transition-colors"
               >
-                <Search size={14} className="text-gray-400" />
-                <span className="text-gray-700 text-sm md:text-base">{suggestion.name}</span>
+                <div className="flex items-center gap-3">
+                  <Search size={14} className="text-gray-400" />
+                  <span className="text-gray-700 text-sm md:text-base">{suggestion.name}</span>
+                </div>
+                <img src={suggestion.image} alt={suggestion.name} className="h-[30px]" />
               </div>
             ))}
           </div>
